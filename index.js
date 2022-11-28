@@ -24,10 +24,10 @@ async function run() {
         const categoriesCollection = client.db('carResale').collection('categories');
         const allCarsCollection = client.db('carResale').collection('allCars');
 
-        //  car section
+        //  car api create part 
+        
         app.post('/allcars', async (req, res) => {
             const car = req.body;
-            console.log(car);
             const result = await allCarsCollection.insertOne(car);
             res.send(result);
         });
@@ -41,7 +41,7 @@ async function run() {
         app.get('/allcars/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
-            const result = await booksCollection.find(query).toArray();
+            const result = await allCarsCollection.find(query).toArray();
             res.send(result);
         });
 
