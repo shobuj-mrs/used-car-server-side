@@ -28,17 +28,17 @@ async function run() {
         app.post('/allcars', async (req, res) => {
             const car = req.body;
             console.log(car);
-            const result = await booksCollection.insertOne(book);
+            const result = await allCarsCollection.insertOne(car);
             res.send(result);
         });
-        app.get('/allbooks/category/:categoryid', async (req, res) => {
+        app.get('/allcars/category/:categoryid', async (req, res) => {
             const categoryid = req.params.categoryid;
-            const query = {bookCategory: categoryid};
-            const result = await booksCollection.find(query).toArray();
+            const query = {carCategory: categoryid};
+            const result = await allCarsCollection.find(query).toArray();
             res.send(result);
         });
 
-        app.get('/allbooks/:email', async (req, res) => {
+        app.get('/allcars/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
             const result = await booksCollection.find(query).toArray();
