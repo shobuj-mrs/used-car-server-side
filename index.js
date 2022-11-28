@@ -23,9 +23,32 @@ async function run() {
 
         const categoriesCollection = client.db('carResale').collection('categories');
         const allCarsCollection = client.db('carResale').collection('allCars');
+        const usersCollection = client.db('carResale').collection('allUsers');
+
+        // create an user and get users 
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            // console.log(user);
+            const result = await usersCollection.insertOne(user);
+            res.send(result);
+        });
+        app.get('/users', async (req, res) => {
+            const query = {};
+            const result = await usersCollection.find(query).toArray();
+            res.send(result);
+        })
+
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const result = await usersCollection.findOne(query);
+            res.send(result);
+        })
+
+
 
         //  car api create part 
-        
+
         app.post('/allcars', async (req, res) => {
             const car = req.body;
             const result = await allCarsCollection.insertOne(car);
@@ -33,7 +56,7 @@ async function run() {
         });
         app.get('/allcars/category/:categoryid', async (req, res) => {
             const categoryid = req.params.categoryid;
-            const query = {carCategory: categoryid};
+            const query = { carCategory: categoryid };
             const result = await allCarsCollection.find(query).toArray();
             res.send(result);
         });
@@ -76,25 +99,7 @@ app.listen(port, () => {
 // const usersCollection = client.db('recyclelib').collection('users');
 //         const booksCollection = client.db('recyclelib').collection('allbooks');
 //         const categoriesCollection = client.db('recyclelib').collection('categories');
-//         app.post('/users', async (req, res) => {
-//             const user = req.body;
-//             console.log(user);
-//             const result = await usersCollection.insertOne(user);
-//             res.send(result);
-//         });
-//         app.get('/users', async (req, res) => {
-//             const query = {};
-//             const result = await usersCollection.find(query).toArray();
-//             res.send(result);
-//         })
-
-//         app.get('/users/:email', async (req, res) => {
-//             const email = req.params.email;
-//             const query = { email: email };
-//             const result = await usersCollection.findOne(query);
-//             res.send(result);
-//         })
-
+//
 //         app.get('/users/allbuyers/:role', async (req, res) => {
 //             const role = req.params.role;
 //             const query = {role: role};
