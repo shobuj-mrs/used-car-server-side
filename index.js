@@ -45,6 +45,13 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/users/allbuyers/:role', async (req, res) => {
+            const role = req.params.role;
+            const query = { role: role };
+            const result = await usersCollection.find(query).toArray();
+            res.send(result);
+        })
+
 
 
         //  car api create part 
@@ -95,18 +102,4 @@ app.listen(port, () => {
 })
 
 
-
-// const usersCollection = client.db('recyclelib').collection('users');
-//         const booksCollection = client.db('recyclelib').collection('allbooks');
-//         const categoriesCollection = client.db('recyclelib').collection('categories');
-//
-//         app.get('/users/allbuyers/:role', async (req, res) => {
-//             const role = req.params.role;
-//             const query = {role: role};
-//             const result = await usersCollection.find(query).toArray();
-//             res.send(result);
-//         })
-
-
-
-//        
+   
