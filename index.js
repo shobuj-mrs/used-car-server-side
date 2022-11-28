@@ -21,6 +21,38 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
 
+        const categoriesCollection = client.db('carResale').collection('categories');
+        const allCarsCollection = client.db('carResale').collection('allCars');
+
+        //  car section
+        app.post('/allcars', async (req, res) => {
+            const car = req.body;
+            console.log(car);
+            const result = await booksCollection.insertOne(book);
+            res.send(result);
+        });
+        app.get('/allbooks/category/:categoryid', async (req, res) => {
+            const categoryid = req.params.categoryid;
+            const query = {bookCategory: categoryid};
+            const result = await booksCollection.find(query).toArray();
+            res.send(result);
+        });
+
+        app.get('/allbooks/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const result = await booksCollection.find(query).toArray();
+            res.send(result);
+        });
+
+
+        app.get('/categories', async (req, res) => {
+            // const email = req.params.email;
+            const query = {};
+            const result = await categoriesCollection.find(query).toArray();
+            res.send(result);
+        });
+
     }
 
     finally {
@@ -38,3 +70,38 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
     console.log(`user resale product running on this ${port}`);
 })
+
+
+
+// const usersCollection = client.db('recyclelib').collection('users');
+//         const booksCollection = client.db('recyclelib').collection('allbooks');
+//         const categoriesCollection = client.db('recyclelib').collection('categories');
+//         app.post('/users', async (req, res) => {
+//             const user = req.body;
+//             console.log(user);
+//             const result = await usersCollection.insertOne(user);
+//             res.send(result);
+//         });
+//         app.get('/users', async (req, res) => {
+//             const query = {};
+//             const result = await usersCollection.find(query).toArray();
+//             res.send(result);
+//         })
+
+//         app.get('/users/:email', async (req, res) => {
+//             const email = req.params.email;
+//             const query = { email: email };
+//             const result = await usersCollection.findOne(query);
+//             res.send(result);
+//         })
+
+//         app.get('/users/allbuyers/:role', async (req, res) => {
+//             const role = req.params.role;
+//             const query = {role: role};
+//             const result = await usersCollection.find(query).toArray();
+//             res.send(result);
+//         })
+
+
+
+//        
